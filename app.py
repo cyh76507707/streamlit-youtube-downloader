@@ -16,12 +16,18 @@ def download_video(url):
     return filename  # Full path to downloaded file
 
 # Streamlit UI
-st.set_page_config(page_title="YouTube Downloader", page_icon="📥")
+st.set_page_config(page_title="YouTube Downloader", page_icon="🎬")
 st.title("🎬 YouTube Video Downloader")
 
 video_url = st.text_input("Enter YouTube video URL")
 
-if st.button("Download"):
+# ⚠️ Legal disclaimer checkbox
+agree = st.checkbox("I confirm I have the right to download this video. I understand the author is not responsible for any misuse.")
+
+if not agree:
+    st.warning("⚠️ You must agree to the copyright responsibility before downloading.")
+
+if st.button("Download", disabled=not agree):
     if video_url.strip():
         try:
             filepath = download_video(video_url)
@@ -36,4 +42,4 @@ if st.button("Download"):
         except Exception as e:
             st.error(f"❌ Error: {e}")
     else:
-        st.warning("⚠️ Please enter a valid YouTube URL.")
+        st.warning("Please enter a valid YouTube URL.")
