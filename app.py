@@ -5,7 +5,7 @@ import os
 def download_video(url):
     output_path = "%(title)s.%(ext)s"
     ydl_opts = {
-        'format': 'best[ext=mp4]',
+        'format': 'bestvideo[height<=720][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]',
         'outtmpl': output_path,
     }
 
